@@ -80,6 +80,21 @@ class Client(object):
         from intercom.service import job
         return job.Job(self)
 
+    @property
+    def articles(self):
+        from intercom.service import article
+        return article.Article(self)
+
+    @property
+    def help_center_collections(self):
+        from intercom.service import help_center_collection
+        return help_center_collection.HelpCenterCollection(self)
+
+    @property
+    def help_center_sections(self):
+        from intercom.service import help_center_section
+        return help_center_section.HelpCenterSection(self)
+
     def _execute_request(self, request, params):
         result = request.execute(self.base_url, self._auth, params)
         self.rate_limit_details = request.rate_limit_details

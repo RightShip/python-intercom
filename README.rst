@@ -66,6 +66,9 @@ Resources this API supports:
     https://api.intercom.io/subscriptions
     https://api.intercom.io/jobs
     https://api.intercom.io/bulk
+    https://api.intercom.io/articles
+    https://api.intercom.io/help_center/collections
+    https://api.intercom.io/help_center/sections
 
 Examples
 ~~~~~~~~
@@ -431,6 +434,91 @@ Counts
 
     # Users in segment counts
     intercom.counts.for_type(type='user', count='segment')
+
+Articles
+^^^^^^^^
+
+.. code:: python
+
+    # Find an article by id
+    article = intercom.articles.find(id="1")
+    # Create an article
+    article = intercom.articles.create(
+        title="Thanks for everything",
+        description="English description",
+        body="<p>This is the body in html</p>"
+        author_id="1",
+        state="published",
+        translated_content={
+            "fr": {
+                "title": "Allez les verts",
+                "description": "French description",
+                "body": "<p>French body in html</p>",
+                "author_id": "1",
+                "state": "published"
+            }
+        })
+    # Iterate over all articles
+    for article in intercom.articles.all():
+        ...
+    # Add an article to a collection
+    article.parent_id = "1"
+    article.parent_type = "collection"
+    intercom.articles.save(article)
+    # Delete an article
+    intercom.articles.delete(article)
+
+Help Center - Collections
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code:: python
+
+    # Find a collection by id
+    collection = intercom.help_center_collections.find(id="1")
+    # Create a collection
+    collection = intercom.help_center_collections.create(
+        title="Collection 1",
+        description="English description",
+        translated_content={
+            "es": {
+                "name": "Colección 1",
+                "description": "Spanish description"
+            }
+        })
+    # Iterate over all collections
+    for collection in intercom.help_center_collections.all():
+        ...
+    # Update a collection
+    collection.name = "Collection 1 Renamed"
+    intercom.help_center_collections.save(collection)
+    # Delete a collection
+    intercom.help_center_collections.delete(collection)
+
+Help Center - Sections
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. code:: python
+
+    # Find a section by id
+    section = intercom.help_center_sections.find(id="1")
+    # Create a section
+    section = intercom.help_center_sections.create(
+        title="Section 1",
+        parent_id="1",
+        translated_content={
+            "es": {
+                "name": "Sección 1",
+                "description": "Spanish description"
+            }
+        })
+    # Iterate over all sections
+    for section in intercom.help_center_sections.all():
+        ...
+    # Update a section
+    section.name = "Section 1 Renamed"
+    intercom.help_center_sections.save(section)
+    # Delete a section
+    intercom.help_center_sections.delete(section)
 
 Subscriptions
 ~~~~~~~~~~~~~

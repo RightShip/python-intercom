@@ -258,6 +258,33 @@ test_tag = {
     "tagged_user_count": 2
 }
 
+test_article = {
+    "id": 3,
+    "type": "article",
+    "workspace_id": "abcdef",
+    "title": "Thanks for everything",
+    "description": "English description",
+    "body": "<p>This is the body in html</p>",
+    "author_id": 1,
+    "state": "published",
+    "created_at": 7891011,
+    "updated_at": 7891011,
+    "url": "http://intercom.test/help/en/articles/3-thanks-for-everything",
+    "parent_id": 1,
+    "parent_type": "collection",
+    "default_locale": "en"
+}
+
+test_help_center_collection = {
+    "id": "1",
+    "name": "Test Collection"
+}
+
+test_help_center_section = {
+    "id": "1",
+    "name": "Test Section"
+}
+
 test_subscription = {
     "type": "notification_subscription",
     "id": "nsub_123456789",

@@ -82,7 +82,11 @@ class CollectionProxy(six.Iterator):
         if response is None:
             raise HttpError('Http Error - No response entity returned')
 
+        if response["type"] == "list": # support for newer list responses
+            self.collection = "data"
+
         collection = response[self.collection]
+        
         # if there are no resources in the response stop iterating
         if collection is None:
             raise StopIteration
@@ -98,6 +102,6 @@ class CollectionProxy(six.Iterator):
     def extract_next_link(self, response):
         if self.paging_info_present(response):
             paging_info = response["pages"]
-            if paging_info["next"]:
+            if "next" in paging_info and paging_info["next"]:
                 next_parsed = six.moves.urllib.parse.urlparse(paging_info["next"])
                 return '{}?{}'.format(next_parsed.path, next_parsed.query)

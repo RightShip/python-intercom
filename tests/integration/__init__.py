@@ -40,6 +40,34 @@ def get_or_create_company(client, timestamp):
             company_id=timestamp, name=name)
     return company
 
+def create_help_center_collection(client, timestamp):
+    name = 'Collection %s' % (timestamp)
+
+    return client.help_center_collections.create(
+        name=name,
+        description="English description",
+        translated_content={
+            "es": {
+                "name": "Colección %s" % (timestamp),
+                "description": "Spanish description"
+            }
+        }
+    )
+
+def create_help_center_section(client, collection, timestamp):
+    name = 'Section %s' % (timestamp)
+
+    return client.help_center_sections.create(
+        name=name,
+        description="English description",
+        parent_id=collection.id,
+        translated_content={
+            "es": {
+                "name": "Sección %s" % (timestamp),
+                "description": "Spanish description"
+            }
+        }
+    )
 
 def delete_user(client, resource):
     try:
